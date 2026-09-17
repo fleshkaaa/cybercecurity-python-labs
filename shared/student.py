@@ -1,0 +1,3 @@
+STUDENT_NAME = "Гудаш Максим"
+GROUP_NAME = "КБ-205"
+VARIANT_NUMBER = 6
