@@ -9,5 +9,49 @@
             "00006"
         ],
         "kwargs": {}
+    },
+    {
+        "event": "login",
+        "user": "admin_v6",
+        "result": "success",
+        "timestamp": "2026-09-25 07:18:17",
+        "args": [
+            "SecurePass#6",
+            "00006"
+        ],
+        "kwargs": {}
+    },
+    {
+        "event": "login",
+        "user": "admin_v6",
+        "result": "failure",
+        "timestamp": "2026-09-25 07:18:17",
+        "args": [
+            "WrongPassword",
+            "00006"
+        ],
+        "kwargs": {}
+    },
+    {
+        "event": "login",
+        "user": "admin_v6",
+        "result": "success",
+        "timestamp": "2026-09-25 07:20:32",
+        "args": [
+            "SecurePass#6",
+            "00006"
+        ],
+        "kwargs": {}
+    },
+    {
+        "event": "login",
+        "user": "admin_v6",
+        "result": "failure",
+        "timestamp": "2026-09-25 07:20:32",
+        "args": [
+            "WrongPassword",
+            "00006"
+        ],
+        "kwargs": {}
     }
 ]

@@ -1,7 +1,7 @@
 """Завдання 2: Багаторівнева система контролю доступу (Варіант 6)."""
 
 
-def run_access_control_system() -> None:
+def check_access() -> None:
     """Головна функція для демонстрації системи контролю доступу."""
     # Вхідні дані для Варіанта 6
     users = {
@@ -88,4 +88,4 @@ def run_access_control_system() -> None:
 
 
 if __name__ == "__main__":
-    run_access_control_system()
+    check_access()
