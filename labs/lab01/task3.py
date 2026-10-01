@@ -90,8 +90,12 @@ def create_users_db(users_list: tuple, salt: str) -> None:
                     writer.writerow([uname, pwd_hash])
                 except (ValueError, ValidationError) as e:
                     print(f"Попередження при реєстрації користувача {uname}: {e}")
-    except (OSError, FileNotFoundError, PermissionError) as e:
-        print(f"Помилка при роботі з файлом бази даних: {e}")
+    except FileNotFoundError as e:
+        print(f"[ПОМИЛКА] Файл не знайдено: {e}")
+    except PermissionError as e:
+        print(f"[ПОМИЛКА] Недостатньо прав доступу до файлу: {e}")
+    except OSError as e:
+        print(f"[ПОМИЛКА] Системна помилка операційної системи: {e}")
 
 
 def read_users_db() -> list:
@@ -128,7 +132,7 @@ def login(username: str, password: str, salt: str) -> bool:
     return False
 
 
-def run_task3() -> None:
+def run_secure_hashing_and_logging() -> None:
     """Головна функція для демонстрації Завдання 3."""
     salt = "00006"  # Сіль для 6 варіанту
     users_to_register = (
@@ -164,4 +168,4 @@ def run_task3() -> None:
 
 
 if __name__ == "__main__":
-    run_task3()
+    run_secure_hashing_and_logging()
