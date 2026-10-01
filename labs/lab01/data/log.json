@@ -53,5 +53,27 @@
             "00006"
         ],
         "kwargs": {}
+    },
+    {
+        "event": "login",
+        "user": "admin_v6",
+        "result": "success",
+        "timestamp": "2026-09-25 07:22:54",
+        "args": [
+            "SecurePass#6",
+            "00006"
+        ],
+        "kwargs": {}
+    },
+    {
+        "event": "login",
+        "user": "admin_v6",
+        "result": "failure",
+        "timestamp": "2026-09-25 07:22:54",
+        "args": [
+            "WrongPassword",
+            "00006"
+        ],
+        "kwargs": {}
     }
 ]

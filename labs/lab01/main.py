@@ -6,7 +6,7 @@ import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../")))
 from task1 import analyze_passwords
 from task2 import check_access
-from task3 import run_task3
+from task3 import run_secure_hashing_and_logging
 
 from shared.student import GROUP_NAME, STUDENT_NAME, VARIANT_NUMBER
 
@@ -26,7 +26,7 @@ def main() -> None:
         check_access()
 
         print("\n[ЗАВДАННЯ 3] Безпечне хешування та логування:")
-        run_task3()
+        run_secure_hashing_and_logging()
 
         print("\n" + "=" * 60)
         print(" Всі завдання для Варіанту 6 успішно виконано!")
