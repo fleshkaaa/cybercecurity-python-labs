@@ -1,0 +1,45 @@
+{
+    "wordlist_file": "labs/lab02/data/data_v06/passwords.txt",
+    "total_passwords": 44,
+    "min_length_threshold": 8,
+    "weak_passwords_count": 10,
+    "weak_passwords_percentage": 22.73,
+    "average_length": 9.98,
+    "top_masks": [
+        {
+            "rank": 1,
+            "mask": "Complex (Upper-Lower-Digit-Special)",
+            "count": 16,
+            "percentage": 36.36,
+            "example": "Password1!"
+        },
+        {
+            "rank": 2,
+            "mask": "All-Lowercase (llll)",
+            "count": 10,
+            "percentage": 22.73,
+            "example": "password"
+        },
+        {
+            "rank": 3,
+            "mask": "Mixed-Other (llll)",
+            "count": 4,
+            "percentage": 9.09,
+            "example": "short1!"
+        },
+        {
+            "rank": 4,
+            "mask": "All-Digits (dddd)",
+            "count": 3,
+            "percentage": 6.82,
+            "example": "123456"
+        },
+        {
+            "rank": 5,
+            "mask": "Lowercase-Digit (ldld)",
+            "count": 2,
+            "percentage": 4.55,
+            "example": "abc123"
+        }
+    ]
+}
