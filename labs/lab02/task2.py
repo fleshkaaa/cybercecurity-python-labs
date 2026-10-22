@@ -3,6 +3,7 @@
 import json
 import logging
 import re
+import sys
 from collections import Counter
 from collections.abc import Iterator
 from pathlib import Path
@@ -31,12 +32,22 @@ def setup_logging(level: int = logging.INFO) -> None:
 
 
 def read_wordlist_generator(filepath: Path) -> Iterator[str]:
-    """Порядково читає словник паролів за допомогою генератора для економії пам'яті."""
-    with filepath.open("r", encoding="utf-8", errors="ignore") as file:
-        for line in file:
-            pwd = line.rstrip("\r\n")
-            if pwd:
-                yield pwd
+    """Порядково читає словник паролів за допомогою генератора з обробкою винятків."""
+    try:
+        with filepath.open("r", encoding="utf-8", errors="ignore") as file:
+            for line in file:
+                pwd = line.rstrip("\r\n")
+                if pwd:
+                    yield pwd
+    except FileNotFoundError:
+        logger.error("Файл словника не знайдено: %s", filepath)
+        raise
+    except PermissionError:
+        logger.error("Відмовлено в доступі до файлу: %s", filepath)
+        raise
+    except OSError as err:
+        logger.error("Помилка операційної системи при читанні файлу: %s", err)
+        raise
 
 
 def char_to_mask_symbol(char: str) -> str:
@@ -103,18 +114,22 @@ def audit_wordlist(
     mask_counter: Counter[str] = Counter()
     mask_examples: dict[str, str] = {}
 
-    for pwd in read_wordlist_generator(wordlist_path):
-        total_passwords += 1
-        pwd_len = len(pwd)
-        total_length += pwd_len
+    try:
+        for pwd in read_wordlist_generator(wordlist_path):
+            total_passwords += 1
+            pwd_len = len(pwd)
+            total_length += pwd_len
 
-        if pwd_len < min_length:
-            weak_passwords += 1
+            if pwd_len < min_length:
+                weak_passwords += 1
 
-        mask_category = classify_password_mask(pwd)
-        mask_counter[mask_category] += 1
-        if mask_category not in mask_examples:
-            mask_examples[mask_category] = pwd
+            mask_category = classify_password_mask(pwd)
+            mask_counter[mask_category] += 1
+            if mask_category not in mask_examples:
+                mask_examples[mask_category] = pwd
+    except OSError as err:
+        print(f"[ERROR] Помилка під час обробки словника: {err}", file=sys.stderr)
+        raise
 
     logger.info("Analyzed %s passwords.", f"{total_passwords:,}")
 
@@ -160,10 +175,14 @@ def audit_wordlist(
     }
 
     if output_stats_path is not None:
-        output_stats_path.parent.mkdir(parents=True, exist_ok=True)
-        with output_stats_path.open("w", encoding="utf-8") as out_file:
-            json.dump(report_data, out_file, indent=4, ensure_ascii=False)
-        print()
-        logger.info("Dictionary statistics saved to %s", output_stats_path)
+        try:
+            output_stats_path.parent.mkdir(parents=True, exist_ok=True)
+            with output_stats_path.open("w", encoding="utf-8") as out_file:
+                json.dump(report_data, out_file, indent=4, ensure_ascii=False)
+            print()
+            logger.info("Dictionary statistics saved to %s", output_stats_path)
+        except OSError as err:
+            logger.error("Не вдалося зберегти JSON-звіт: %s", err)
+            raise
 
     return report_data
