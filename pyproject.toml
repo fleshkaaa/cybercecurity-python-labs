@@ -1,0 +1,18 @@
+[tool.ruff]
+line-length = 88
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "D"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "pep257"
+
+[tool.ruff.lint.per-file-ignores]
+"labs/lab01/**" = ["D"]
+"labs/lab02/**" = ["D"]
+"shared/**" = ["D"]
+"tests/**" = ["D"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
